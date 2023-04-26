@@ -14,13 +14,15 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public GameObject titleScreen;
     public TextMeshProUGUI livesText;
+    public AudioSource audio;
     private float spawnRate = 1.0f;
     private int score;
     public int lives;
     // Start is called before the first frame update
     void Start()
     {
-
+        score = 0;
+        lives = 3;
     }
     IEnumerator SpawnTarget()
     {
@@ -35,6 +37,11 @@ public class GameManager : MonoBehaviour
     {
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
+    }
+    public void UpdateLives(int livesToSubtract)
+    {
+        lives -= livesToSubtract;
+        livesText.text = "Lives: " + lives;
     }
     public void GameOver()
     {
@@ -54,12 +61,10 @@ public class GameManager : MonoBehaviour
         titleScreen.gameObject.SetActive(false);
         spawnRate /= difficulty;
         lives = 3;
+        UpdateLives(0);
+        UpdateScore(0);
     }
-    public void UpdataeLives(int livesToSubract)
-    {
-        lives -= 1;
-        livesText.text = "Lives: " + lives;
-    }
+    
 
 
 
