@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> targets;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI pausedText;
     public bool isGameActive;
     public Button restartButton;
     public GameObject titleScreen;
     public TextMeshProUGUI livesText;
-    public AudioSource audio;
     private float spawnRate = 1.0f;
     private int score;
     public int lives;
@@ -64,6 +64,16 @@ public class GameManager : MonoBehaviour
         UpdateLives(0);
         UpdateScore(0);
     }
+    public void Paused()
+    {
+        Time.timeScale = 0;
+        pausedText.gameObject.SetActive(true);
+    }
+    public void Resume()
+    {
+        Time.timeScale = 1.0f;
+        pausedText.gameObject.SetActive(false);
+    }
     
 
 
@@ -72,6 +82,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Paused();
+        }
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            Resume();
+        }
     }
 }
